@@ -1,4 +1,4 @@
-polcrawl
+polofferextract
 ========
 
 Node.js application that finds these month offers at vinmonopolet.no by reading a mongoDB.
