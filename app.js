@@ -32,11 +32,16 @@ polData.find({}, { stream: true })
               price = attrValue;
             }
         }
-        if (time.getMonth() === new Date().getMonth())
+        if ( (time.getMonth() === new Date().getMonth()) && (time.getYear() === new Date().getYear()) )
         {
           priceThisMonth = price;
         }
-        else if ((time.getMonth() -1) === (new Date().getMonth() - 1))
+        else if ( ((time.getMonth() -1) === (new Date().getMonth() - 1)) && (time.getYear() === new Date().getYear()) && (new Date().getMonth() > 0) )
+        {
+          priceLastMonth = price;
+        }
+        // If today is january, compare with price last december last year
+        else if ( (new Date().getMonth() === 0) && (time.getMonth() === 11) && (time.getYear() === new Date().getYear() -1) )
         {
           priceLastMonth = price;
         }
