@@ -37,7 +37,7 @@ polData.find({}, { stream: true })
         {
           priceThisMonth = price;
         }
-        else if ( ((time.getMonth() -1) === (new Date().getMonth() - 1)) && (time.getYear() === new Date().getYear()) && (new Date().getMonth() > 0) )
+        else if ( ((time.getMonth()) === (new Date().getMonth() - 1)) && (time.getYear() === new Date().getYear()) && (new Date().getMonth() > 0) )
         {
           priceLastMonth = price;
         }
