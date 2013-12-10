@@ -8,6 +8,11 @@ var async = require('async');
 var polData = db.get('pol');
 var polOffers = offerdb.get('offers');
 
+// Remove existing extract for this month
+polOffers.remove( {
+                    _id : (new Date().getMonth() + 1) + "" + new Date().getFullYear()
+                  });      
+
 polData.find({}, { stream: true })
   .each(function(doc){
     var pricesDoc = doc.prices;
@@ -52,10 +57,12 @@ polData.find({}, { stream: true })
         //console.log("Time: " + time);
     }
 
-    if (priceThisMonth != undefined && priceLastMonth != undefined)
+    if (doc.name != undefined && priceThisMonth != undefined && priceLastMonth != undefined)
     {
-      var priceThisMonthNumber = Math.round(parseFloat(priceThisMonth.replace(",","."))*100)/100;
-      var priceLastMonthNumber = Math.round(parseFloat(priceLastMonth.replace(",","."))*100)/100;
+      var priceThisMonthNoPeriod = priceThisMonth.replace(".","");
+      var priceLastMonthNoPeriod = priceLastMonth.replace(".","");
+      var priceThisMonthNumber = Math.round(parseFloat(priceThisMonthNoPeriod.replace(",","."))*100)/100;
+      var priceLastMonthNumber = Math.round(parseFloat(priceLastMonthNoPeriod.replace(",","."))*100)/100;
       //console.log("Price this month: " + priceThisMonth);
       //console.log("Price last month: " + priceLastMonth);
     
