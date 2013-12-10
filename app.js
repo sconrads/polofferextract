@@ -54,24 +54,24 @@ polData.find({}, { stream: true })
 
     if (priceThisMonth != undefined && priceLastMonth != undefined)
     {
-      priceThisMonth = parseFloat(priceThisMonth.replace(",",".")).toFixed(2);
-      priceLastMonth = parseFloat(priceLastMonth.replace(",",".")).toFixed(2);
+      var priceThisMonthNumber = Math.round(parseFloat(priceThisMonth.replace(",","."))*100)/100;
+      var priceLastMonthNumber = Math.round(parseFloat(priceLastMonth.replace(",","."))*100)/100;
       //console.log("Price this month: " + priceThisMonth);
       //console.log("Price last month: " + priceLastMonth);
     
-      if (priceThisMonth < priceLastMonth)
+      if (priceThisMonthNumber < priceLastMonthNumber)
       {
         console.log(doc.name);
-        console.log("Price this month: " + priceThisMonth);
-        console.log("Price last month: " + priceLastMonth);
-        console.log("Reduction in price this month in NOK: " + parseFloat(priceLastMonth - priceThisMonth).toFixed(2));
-        console.log("Reduction in price this month in percent: " + (((parseFloat(priceLastMonth - priceThisMonth).toFixed(2))/priceLastMonth)*100).toFixed(2));
+        console.log("Price this month: " + priceThisMonthNumber);
+        console.log("Price last month: " + priceLastMonthNumber);
+        console.log("Reduction in price this month in NOK: " + Math.round((priceLastMonthNumber - priceThisMonthNumber)*100)/100);
+        console.log("Reduction in price this month in percent: " + Math.round((((priceLastMonthNumber - priceThisMonthNumber)/priceLastMonthNumber)*100)*100)/100);
         var offerJson = {
                       product : doc,
-                      priceThisMonth : priceThisMonth,
-                      priceLastMonth : priceLastMonth,
-                      priceReductionNok : parseFloat(priceLastMonth - priceThisMonth).toFixed(2),
-                      priceReductionPrecent : (((parseFloat(priceLastMonth - priceThisMonth).toFixed(2))/priceLastMonth)*100).toFixed(2)
+                      priceThisMonth : priceThisMonthNumber,
+                      priceLastMonth : priceLastMonthNumber,
+                      priceReductionNok : Math.round((priceLastMonthNumber - priceThisMonthNumber)*100)/100,
+                      priceReductionPrecent : Math.round((((priceLastMonthNumber - priceThisMonthNumber)/priceLastMonthNumber)*100)*100)/100
                     };
 
         polOffers.update( {
